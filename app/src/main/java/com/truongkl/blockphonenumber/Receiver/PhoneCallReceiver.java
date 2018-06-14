@@ -44,7 +44,8 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     private GroupDAO groupDAO;
     private String number;
     private FirebaseUser currentUser;
-    private String userPhoneNumber = "0964449404";
+//    private String userPhoneNumber = "0964449404";
+    private String userPhoneNumber;
     private SharedPreferences sharedPref;
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -58,7 +59,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                 Toast.makeText(context, "Phone calling " + number , Toast.LENGTH_SHORT).show();
 
                 currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                //userPhoneNumber = currentUser.getPhoneNumber();
+                userPhoneNumber = currentUser.getPhoneNumber();
                 sharedPref = context.getSharedPreferences(SAVE_TIME, Context.MODE_PRIVATE);
 
                 listNumber = new ArrayList<>();
@@ -99,12 +100,21 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     private class NumberLoader extends AsyncTask<Context, Void, Void>{
         @Override
         protected Void doInBackground(Context... contexts) {
+            ArrayList<Number> numbers = (ArrayList<Number>) numberDAO.findNumber(number);
+//            Number num = numberDAO.findNumber(number);
+            if (numbers != null && numbers.size() != 0){
+                ArrayList<Group> groups = new ArrayList<>();
+                String groupName = "";
+                for (Number number: numbers){
+                    Group group = groupDAO.findGroupById(number.getGroupId());
+                    groups.add(group);
+                    groupName += group.getName() + ", ";
+                }
 
-            Number num = numberDAO.findNumber(number);
-            if (num != null){
-                Group group = groupDAO.findGroupById(num.getGroupId());
-                String groupName = group.getName();
-                if (group.getUserPhoneNumber().equals(userPhoneNumber)){
+                groupName = groupName.substring(0, groupName.length()-2);
+//                Group group = groupDAO.findGroupById(num.getGroupId());
+
+                if (isMyGroup(numbers)){
                     if (sharedPref.getBoolean(IS_BLOCK_IN_PERIOD, false)){
                         final Calendar c = Calendar.getInstance();
                         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -119,7 +129,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                         int to = toHour*60 + toMinute;
                         int now = hour*60 + minute;
                         if (from < now && now < to){
-                            if (group.getUserPhoneNumber().equals(userPhoneNumber)){
+                            if (isMyGroup(numbers)){
                                 breakCall(contexts[0]);
                             }
                         }else{
@@ -143,5 +153,15 @@ public class PhoneCallReceiver extends BroadcastReceiver {
         intent.putExtra(BLOCK_NUMBER, number);
         intent.putExtra(GROUP_NAME, groupName);
         context.startService(intent);
+    }
+
+    private boolean isMyGroup(ArrayList<Number> numbers){
+        for (Number number: numbers){
+            Group group = groupDAO.findGroupById(number.getGroupId());
+            if (group.getUserPhoneNumber().equals(userPhoneNumber)){
+                return true;
+            }
+        }
+        return false;
     }
 }

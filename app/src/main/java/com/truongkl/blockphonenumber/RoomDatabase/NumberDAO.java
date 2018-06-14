@@ -36,6 +36,6 @@ public interface NumberDAO {
     public List<String> loadnum(String userPhoneNumber);
 
     @Query("SELECT * FROM numbers WHERE number LIKE :number")
-    public Number findNumber(String number);
+    public List<Number> findNumber(String number);
 
 }

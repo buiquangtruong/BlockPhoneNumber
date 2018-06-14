@@ -116,7 +116,7 @@ public class SettingActivity extends AppCompatActivity {
                         editor.putInt(FROM_HOUR, hourOfDay);
                         editor.putInt(FROM_MINUTE, minute);
                         editor.commit();
-                        txtFrom.setText("From " + hourOfDay + " : " + minute);
+                        txtFrom.setText(hourOfDay + " : " + minute);
                     }
                 });
             }
@@ -133,7 +133,7 @@ public class SettingActivity extends AppCompatActivity {
                         editor.putInt(TO_HOUR, hourOfDay);
                         editor.putInt(TO_MINUTE, minute);
                         editor.commit();
-                        txtTo.setText("To " + hourOfDay + " : " + minute);
+                        txtTo.setText(hourOfDay + " : " + minute);
                     }
                 });
             }

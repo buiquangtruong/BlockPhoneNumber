@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UI.ListGroupActivity">
+        <activity android:name=".UI.LoginActiviy">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,7 @@
 
         <activity android:name=".UI.TestActivity"/>
 
-        <activity android:name=".UI.LoginActiviy"/>
+        <activity android:name=".UI.ListGroupActivity"/>
 
         <activity android:name=".UI.ListNumberActivity"/>
 

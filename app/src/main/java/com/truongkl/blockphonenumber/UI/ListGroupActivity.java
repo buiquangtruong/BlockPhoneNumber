@@ -64,8 +64,8 @@ import static com.truongkl.blockphonenumber.Key.REQUEST_CODE_PERMISSION;
 public class ListGroupActivity extends AppCompatActivity {
     private static final int CODE_DRAW_OVER_OTHER_APP_PERMISSION = 2084;
     private static final String TAG ="ListGroupActivity";
-//    public static String userPhoneNumber ;
-    public static String userPhoneNumber = "0964449404" ;
+    public static String userPhoneNumber ;
+//    public static String userPhoneNumber = "0964449404" ;
 
     private ArrayList<Group> groups;
     private GroupAdapter adapter;
@@ -144,9 +144,9 @@ public class ListGroupActivity extends AppCompatActivity {
     }
 
     private void initView() {
-//        mAuth = FirebaseAuth.getInstance();
-//        currentUser = mAuth.getCurrentUser();
-        //userPhoneNumber = currentUser.getPhoneNumber();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        userPhoneNumber = currentUser.getPhoneNumber();
 
         groups = new ArrayList<>();
         adapter = new GroupAdapter(this, groups);

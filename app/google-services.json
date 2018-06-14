@@ -15,12 +15,24 @@
       },
       "oauth_client": [
         {
+          "client_id": "505736110408-93q14g30luei9oqdh7mdi3m7jffq657q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.truongkl.blockphonenumber",
+            "certificate_hash": "0065ba5dc8120185c42cfa204498591efe44461e"
+          }
+        },
+        {
           "client_id": "505736110408-anemq7ri599sivq4mjm7087lsie5g0iu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.truongkl.blockphonenumber",
             "certificate_hash": "a3309c4221d435bdcb98513d147b5de75ddf52f4"
           }
+        },
+        {
+          "client_id": "505736110408-hosgarrskj66kl0f9njg3d2s2uqg03qh.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "505736110408-hosgarrskj66kl0f9njg3d2s2uqg03qh.apps.googleusercontent.com",

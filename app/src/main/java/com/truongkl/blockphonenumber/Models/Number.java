@@ -13,11 +13,11 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
  */
 
 @Entity(tableName = "numbers",
+        primaryKeys = {"number", "groupId"},
         foreignKeys = @ForeignKey(entity = Group.class, parentColumns = "id", childColumns = "groupId",
                 onDelete = CASCADE, onUpdate = CASCADE))
 public class Number {
     @NonNull
-    @PrimaryKey
     private String number;
     private int groupId;
 
