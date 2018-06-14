@@ -71,8 +71,9 @@ public class SettingActivity extends AppCompatActivity {
         int toHour = sharedPref.getInt(TO_HOUR, 18);
         int toMinute = sharedPref.getInt(TO_MINUTE, 0);
 
-        txtFrom.setText("From " + fromHour + " : " + fromMinute );
-        txtTo.setText("To " + toHour + " : " + toMinute );
+
+        txtFrom.setText(formatTime(fromHour, fromMinute));
+        txtTo.setText(formatTime(toHour, toMinute) );
 
         rbAutoBlock.setChecked(sharedPref.getBoolean(IS_AUTO_BLOCK, true));
         rbBlockInPeriod.setChecked(sharedPref.getBoolean(IS_BLOCK_IN_PERIOD, false));
@@ -116,7 +117,7 @@ public class SettingActivity extends AppCompatActivity {
                         editor.putInt(FROM_HOUR, hourOfDay);
                         editor.putInt(FROM_MINUTE, minute);
                         editor.commit();
-                        txtFrom.setText(hourOfDay + " : " + minute);
+                        txtFrom.setText(formatTime(hourOfDay, minute));
                     }
                 });
             }
@@ -133,7 +134,7 @@ public class SettingActivity extends AppCompatActivity {
                         editor.putInt(TO_HOUR, hourOfDay);
                         editor.putInt(TO_MINUTE, minute);
                         editor.commit();
-                        txtTo.setText(hourOfDay + " : " + minute);
+                        txtTo.setText(formatTime(hourOfDay, minute));
                     }
                 });
             }
@@ -151,5 +152,23 @@ public class SettingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActiviy.class);
         startActivity(intent);
         finishAffinity();
+    }
+
+    private String formatTime(int hour, int minute){
+        String s = "";
+        if (hour < 10) {
+            s += "0" + hour;
+        }else {
+            s += hour;
+        }
+
+        s += " : ";
+        if (minute < 10){
+            s += "0" + minute;
+        }
+        else {
+            s += minute;
+        }
+        return s;
     }
 }

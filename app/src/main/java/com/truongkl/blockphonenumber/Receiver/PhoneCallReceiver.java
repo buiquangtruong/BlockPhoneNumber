@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
@@ -84,6 +85,9 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     // Ends phone call
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void breakCall(Context context) {
+        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamMute(AudioManager.STREAM_RING, true);
+
         TelephonyManager telephony = (TelephonyManager)
                 context.getSystemService(Context.TELEPHONY_SERVICE);
         try {
